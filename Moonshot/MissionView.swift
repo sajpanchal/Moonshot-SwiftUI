@@ -24,8 +24,11 @@ struct MissionView: View {
                         .scaledToFit()
                         .frame(maxWidth: geometry.size.width * 0.7)
                         .padding(.top)
-                    Text(self.mission.formattedLaunchDate)
+                    Text(self.mission.formattedLaunchDate).accessibility(label: Text("launch date"))
+                        .accessibility(value: Text("\(self.mission.formattedLaunchDate == "N/A" ? "NOT AVAILABLE": self.mission.formattedLaunchDate)"))
                     Text(self.mission.description)
+                        .accessibility(label: Text("Mission Description"))
+                        .accessibility(value: Text(self.mission.description))
                         .padding()
                     ForEach(self.astronauts, id: \.role) { crewMember in
                         NavigationLink(
