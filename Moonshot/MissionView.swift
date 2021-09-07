@@ -19,13 +19,17 @@ struct MissionView: View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack {
-                    Image(self.mission.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: geometry.size.width * 0.7)
-                        .padding(.top)
+                    GeometryReader  { img in
+                        Image(self.mission.image)
+                            .resizable()
+//                            .scaledToFit()
+                            .frame(width: (geometry.size.width * 0.7) - abs(img.frame(in: .global).minY) / 5, height: (geometry.size.width * 0.7) - abs(img.frame(in: .global).minY) / 5, alignment: .center)
+                            .padding(.top)
+                    }
+                    
                     Text(self.mission.formattedLaunchDate).accessibility(label: Text("launch date"))
                         .accessibility(value: Text("\(self.mission.formattedLaunchDate == "N/A" ? "NOT AVAILABLE": self.mission.formattedLaunchDate)"))
+                    
                     Text(self.mission.description)
                         .accessibility(label: Text("Mission Description"))
                         .accessibility(value: Text(self.mission.description))
